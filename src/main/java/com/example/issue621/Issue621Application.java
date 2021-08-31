@@ -34,19 +34,20 @@ public class Issue621Application {
 	public class MvcConfig implements WebMvcConfigurer {
 
 	    @Bean
-	    public File filesystemRoot() {
+	    public File filesystemRoot() throws IOException {
 	        try {
-	            String fileName = "/tmp/issue-621";
+	            String fileName = "E:/rpi/1/issue-621";
 	            Path path = Paths.get(fileName);
 	            return Files.createDirectories(path).toFile();
             } catch (IOException ioe) {
-                int i=0;
+                throw ioe;
             }
-	        return null;
+
+			//return new File("E:/rpi/1/issue-621");
 	    }
 
 	    @Bean
-	    public FileSystemResourceLoader fileSystemResourceLoader() {
+	    public FileSystemResourceLoader fileSystemResourceLoader() throws IOException {
 	        return new FileSystemResourceLoader(filesystemRoot().getAbsolutePath());
 	    }
 
